@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karthik // Cybersecurity Specialist</title>
+<meta name="description" content="Karthik — Cybersecurity Specialist with 5+ years in SOC operations, incident response, and penetration testing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#00ff41;
+  --green-dim:#00b32d;
+  --green-dark:#004d14;
+  --red:#ff2e2e;
+  --cyan:#00e5ff;
+  --bg:#050805;
+  --panel:rgba(0,20,5,.55);
+  --border:rgba(0,255,65,.28);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--green);
+  font-family:'Share Tech Mono',monospace;
+  line-height:1.7;
+  overflow-x:hidden;
+  position:relative;
+}
+::selection{background:var(--green);color:#000}
+
+#matrix{position:fixed;inset:0;z-index:0;opacity:.18;pointer-events:none;}
+.scanlines{
+  position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0px,rgba(0,0,0,0) 2px,rgba(0,255,65,.045) 3px,rgba(0,0,0,0) 4px);
+  mix-blend-mode:overlay;
+}
+.vignette{
+  position:fixed;inset:0;z-index:9998;pointer-events:none;
+  background:radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.85) 100%);
+}
+.flicker{
+  position:fixed;inset:0;z-index:9997;pointer-events:none;
+  background:rgba(0,255,65,.02);
+  animation:flick 6s infinite steps(1);
+}
+@keyframes flick{
+  0%,97%{opacity:0}97.5%{opacity:.6}98%{opacity:0}98.5%{opacity:.4}99%{opacity:0}
+}
+
+.wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:0 1.25rem 6rem;}
+
+header{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:4rem 0;}
+.boot{font-size:.8rem;color:var(--green-dim);margin-bottom:1.5rem;min-height:1.4em;letter-spacing:.5px;}
+.boot .ok{color:var(--green)}
+.boot .cursor{background:var(--green);color:#000;animation:blink 1s steps(1) infinite}
+
+h1{
+  font-size:clamp(2.6rem,9vw,5.5rem);
+  letter-spacing:.08em;line-height:1;margin-bottom:.6rem;
+  text-shadow:0 0 10px rgba(0,255,65,.6),0 0 30px rgba(0,255,65,.25);
+}
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{
+  content:attr(data-text);position:absolute;top:0;left:0;width:100%;
+  background:var(--bg);overflow:hidden;
+}
+.glitch::before{color:var(--red);left:2px;animation:gl1 3.2s infinite linear alternate-reverse;clip-path:inset(0 0 55% 0);}
+.glitch::after{color:var(--cyan);left:-2px;animation:gl2 2.6s infinite linear alternate-reverse;clip-path:inset(60% 0 0 0);}
+@keyframes gl1{
+  0%,86%,100%{transform:translate(0);opacity:0}
+  87%{transform:translate(-3px,-1px);opacity:.9}
+  89%{transform:translate(3px,1px);opacity:.9}
+  91%{transform:translate(-2px,0);opacity:.9}
+  93%{transform:translate(0);opacity:0}
+}
+@keyframes gl2{
+  0%,80%,100%{transform:translate(0);opacity:0}
+  82%{transform:translate(3px,1px);opacity:.9}
+  84%{transform:translate(-3px,-1px);opacity:.9}
+  86%{transform:translate(2px,0);opacity:.9}
+  88%{transform:translate(0);opacity:0}
+}
+
+.role{font-size:clamp(.95rem,2.6vw,1.35rem);color:var(--green-dim);margin-bottom:1.5rem;min-height:2em;}
+.role .caret{display:inline-block;width:.6em;height:1.1em;background:var(--green);vertical-align:-.18em;animation:blink 1s steps(1) infinite;}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+
+.hero-email{
+  font-size:.9rem;margin-bottom:2rem;color:var(--green-dim);
+  display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;align-items:center;
+}
+.hero-email a{
+  color:var(--green);text-decoration:none;
+  border-bottom:1px dashed var(--green-dim);
+  padding-bottom:1px;
+  transition:all .2s;
+}
+.hero-email a:hover{background:var(--green);color:#000;border-color:transparent;padding:1px 4px;}
+
+.hero-meta{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2.5rem;}
+.tag{
+  border:1px solid var(--border);padding:.25rem .7rem;font-size:.75rem;
+  color:var(--green-dim);background:rgba(0,255,65,.04);transition:all .2s;
+}
+.tag:hover{background:rgba(0,255,65,.12);color:var(--green)}
+
+.hero-cta{display:flex;flex-wrap:wrap;gap:1rem;}
+.btn{
+  display:inline-block;text-decoration:none;border:1px solid var(--green);
+  color:var(--green);padding:.7rem 1.5rem;font-size:.9rem;
+  background:transparent;cursor:pointer;font-family:inherit;
+  transition:all .2s;position:relative;letter-spacing:.05em;
+}
+.btn:hover{background:var(--green);color:#000;box-shadow:0 0 20px rgba(0,255,65,.6)}
+.btn.ghost{border-color:var(--border);color:var(--green-dim)}
+.btn.ghost:hover{border-color:var(--green);color:#000;background:var(--green)}
+.btn.wa{border-color:var(--border);color:var(--green-dim)}
+.btn.wa:hover{border-color:#25d366;background:#25d366;color:#000;box-shadow:0 0 20px rgba(37,211,102,.5)}
+
+section{margin:5rem 0;scroll-margin-top:2rem;}
+h2{
+  font-size:clamp(1.1rem,3.4vw,1.5rem);letter-spacing:.12em;margin-bottom:2rem;
+  color:var(--green);display:flex;align-items:center;gap:.75rem;text-transform:uppercase;
+}
+h2::before{content:"┌─[ ";color:var(--green-dim);white-space:pre}
+h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);}
+h2 .num{color:var(--green-dark)}
+
+.term{
+  border:1px solid var(--border);background:var(--panel);backdrop-filter:blur(3px);
+  border-radius:4px;overflow:hidden;transition:border-color .3s, box-shadow .3s;
+}
+.term:hover{border-color:rgba(0,255,65,.55);box-shadow:0 0 24px rgba(0,255,65,.12)}
+.term-bar{
+  display:flex;align-items:center;gap:.5rem;padding:.5rem .9rem;
+  border-bottom:1px solid var(--border);background:rgba(0,255,65,.06);
+  font-size:.72rem;color:var(--green-dim);
+}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--green-dark)}
+.dot.r{background:#5a1414}.dot.y{background:#5a4a14}
+.term-bar .path{margin-left:auto;opacity:.7}
+.term-body{padding:1.5rem}
+
+.about p{margin-bottom:1rem;color:#b9ffcb;font-size:.95rem;}
+.about .key{color:var(--green);text-shadow:0 0 8px rgba(0,255,65,.5);}
+
+.grid2{display:grid;grid-template-columns:1fr;gap:1.25rem;}
+@media(min-width:760px){.grid2{grid-template-columns:1fr 1fr}}
+.skill{margin-bottom:1.15rem;}
+.skill:last-child{margin-bottom:0}
+.skill-head{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.35rem;color:#b9ffcb;}
+.skill-head .pct{color:var(--green-dim)}
+.bar{height:8px;background:rgba(0,255,65,.08);border:1px solid rgba(0,255,65,.2);position:relative;overflow:hidden;}
+.fill{
+  height:100%;width:0;
+  background:linear-gradient(90deg,var(--green-dark),var(--green));
+  box-shadow:0 0 12px rgba(0,255,65,.7);
+  transition:width 1.4s cubic-bezier(.2,.8,.2,1);
+}
+.reveal.visible .fill{width:var(--w)}
+
+.job{border-left:2px solid var(--green-dark);padding-left:1.25rem;margin-bottom:2.25rem;position:relative;}
+.job:last-child{margin-bottom:0}
+.job::before{
+  content:"";position:absolute;left:-7px;top:.55rem;width:12px;height:12px;
+  border-radius:50%;background:var(--bg);border:2px solid var(--green);
+  box-shadow:0 0 10px var(--green);
+}
+.job-title{font-size:1.05rem;color:var(--green);letter-spacing:.04em;}
+.job-meta{font-size:.78rem;color:var(--green-dim);margin-bottom:.75rem;}
+.job ul{list-style:none;}
+.job li{font-size:.88rem;color:#b9ffcb;padding-left:1.2rem;position:relative;margin-bottom:.35rem;}
+.job li::before{content:"▸";position:absolute;left:0;color:var(--green-dim);}
+.job li b{color:var(--green);font-weight:400;text-shadow:0 0 6px rgba(0,255,65,.5);}
+
+.proj-grid{display:grid;grid-template-columns:1fr;gap:1.25rem;}
+@media(min-width:760px){.proj-grid{grid-template-columns:1fr 1fr}}
+.proj{
+  border:1px solid var(--border);background:var(--panel);padding:1.25rem;
+  transition:all .25s;position:relative;overflow:hidden;
+}
+.proj::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 60%,rgba(0,255,65,.08));
+  opacity:0;transition:opacity .25s;pointer-events:none;
+}
+.proj:hover{border-color:var(--green);transform:translateY(-4px);box-shadow:0 0 28px rgba(0,255,65,.18);}
+.proj:hover::after{opacity:1}
+.proj h3{font-size:.98rem;color:var(--green);margin-bottom:.5rem;letter-spacing:.03em;}
+.proj .stack{font-size:.72rem;color:var(--cyan);margin-bottom:.65rem;opacity:.85;}
+.proj p{font-size:.85rem;color:#b9ffcb}
+
+.certs{display:grid;grid-template-columns:1fr;gap:.75rem;}
+@media(min-width:600px){.certs{grid-template-columns:1fr 1fr}}
+.cert{
+  display:flex;align-items:center;gap:.75rem;border:1px solid var(--border);
+  background:rgba(0,255,65,.03);padding:.7rem 1rem;font-size:.85rem;transition:all .2s;
+}
+.cert:hover{background:rgba(0,255,65,.1);border-color:var(--green);transform:translateX(4px)}
+.cert .badge{color:var(--green);text-shadow:0 0 8px rgba(0,255,65,.6);}
+.cert .yr{margin-left:auto;color:var(--green-dim);font-size:.75rem;}
+
+.contact-list{list-style:none;font-size:.92rem;}
+.contact-list li{margin-bottom:.8rem;display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap;}
+.contact-list .lbl{color:var(--green-dim);min-width:90px;}
+.contact-list a{color:var(--green);text-decoration:none;border-bottom:1px dashed var(--green-dim);transition:all .15s;word-break:break-all;}
+.contact-list a:hover{background:var(--green);color:#000;border-color:transparent;padding:1px 4px;}
+
+.copy-btn{
+  background:transparent;border:1px solid var(--green-dim);color:var(--green-dim);
+  font-family:inherit;font-size:.7rem;padding:.15rem .5rem;cursor:pointer;
+  margin-left:.5rem;transition:all .2s;
+}
+.copy-btn:hover{background:var(--green);color:#000;border-color:var(--green);}
+
+.shell{
+  border:1px solid var(--green);background:rgba(0,10,2,.85);
+  padding:1.25rem;box-shadow:0 0 30px rgba(0,255,65,.12) inset;
+}
+#shell-out{font-size:.85rem;white-space:pre-wrap;margin-bottom:.85rem;max-height:260px;overflow-y:auto;color:#b9ffcb;}
+#shell-out::-webkit-scrollbar{width:6px}
+#shell-out::-webkit-scrollbar-thumb{background:var(--green-dark)}
+.shell-line{display:flex;gap:.5rem;align-items:center;font-size:.9rem;}
+.shell-line .ps1{color:var(--green-dim);white-space:nowrap;}
+#shell-in{
+  flex:1;background:transparent;border:none;outline:none;
+  color:var(--green);font-family:inherit;font-size:.9rem;
+  caret-color:var(--green);
+}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+footer{
+  text-align:center;padding:3rem 1rem 1rem;font-size:.75rem;color:var(--green-dark);
+  border-top:1px solid var(--border);margin-top:5rem;line-height:2;
+}
+footer span{color:var(--green-dim)}
+footer a{color:var(--green-dim);text-decoration:none;border-bottom:1px dashed var(--green-dark);}
+footer a:hover{color:var(--green);border-color:var(--green);}
+
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#050805}
+::-webkit-scrollbar-thumb{background:var(--green-dark);border:2px solid #050805}
+::-webkit-scrollbar-thumb:hover{background:var(--green-dim)}
+</style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+<div class="vignette"></div>
+<div class="scanlines"></div>
+<div class="flicker"></div>
+
+<div class="wrap">
+
+  <!-- ================= HERO ================= -->
+  <header>
+    <div class="boot" id="boot"></div>
+
+    <h1><span class="glitch" data-text="KARTHIK">KARTHIK</span></h1>
+
+    <div class="role">
+      <span id="typed"></span><span class="caret"></span>
+    </div>
+
+    <p class="hero-email">
+      <span>📧 <a href="mailto:kkarthik48389@gmail.com">kkarthik48389@gmail.com</a></span>
+      <span>📱 <a href="tel:+918590822745">+91 85908 22745</a></span>
+      <span>🔗 <a href="https://www.linkedin.com/in/karthik-v-rajesh-7b46a82b2" target="_blank" rel="noopener">linkedin.com/in/karthik-v-rajesh</a></span>
+    </p>
+
+    <div class="hero-meta">
+      <span class="tag">5+ YRS EXP</span>
+      <span class="tag">SOC / IR</span>
+      <span class="tag">PEN TESTING</span>
+      <span class="tag">CLOUD SEC</span>
+      <span class="tag">[ CITY, INDIA ]</span>
+    </div>
+
+    <div class="hero-cta">
+      <a href="mailto:kkarthik48389@gmail.com" class="btn">./hire_me</a>
+      <a href="https://wa.me/918590822745" target="_blank" rel="noopener" class="btn wa">./whatsapp</a>
+      <a href="https://www.linkedin.com/in/karthik-v-rajesh-7b46a82b2" target="_blank" rel="noopener" class="btn ghost">./linkedin</a>
+      <a href="#projects" class="btn ghost">cat projects.txt</a>
+    </div>
+  </header>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about" class="reveal">
+    <h2><span class="num">01 /</span> whoami</h2>
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot"></span>
+        <span class="path">~/karthik/about.md</span>
+      </div>
+      <div class="term-body about">
+        <p><span class="key">$</span> Cybersecurity Specialist with <span class="key">5+ years</span> of hands-on experience defending enterprise networks, leading incident response, and breaking into systems before the bad guys do.</p>
+        <p>I've built and run 24/7 SOC operations, automated threat triage with Python and SOAR, conducted penetration tests across web, network, and cloud, and driven ISO 27001 compliance to certification with zero major findings.</p>
+        <p>My focus: <span class="key">reduce detection time</span>, <span class="key">eliminate blind spots</span>, and translate deep technical risk into language the business actually understands.</p>
+        <p style="color:var(--green-dim)">// Currently open to senior security roles, consulting, and red team engagements.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SKILLS ================= -->
+  <section id="skills" class="reveal">
+    <h2><span class="num">02 /</span> capabilities</h2>
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot"></span>
+        <span class="path">~/karthik/skills --list</span>
+      </div>
+      <div class="term-body">
+        <div class="grid2">
+          <div>
+            <div class="skill">
+              <div class="skill-head"><span>Security Operations / SIEM</span><span class="pct">95%</span></div>
+              <div class="bar"><div class="fill" style="--w:95%"></div></div>
+            </div>
+            <div class="skill">
+              <div class="skill-head"><span>Incident Response &amp; Forensics</span><span class="pct">92%</span></div>
+              <div class="bar"><div class="fill" style="--w:92%"></div></div>
+            </div>
+            <div class="skill">
+              <div class="skill-head"><span>Penetration Testing</span><span class="pct">88%</span></div>
+              <div class="bar"><div class="fill" style="--w:88%"></div></div>
+            </div>
+            <div class="skill">
+              <div class="skill-head"><span>Vulnerability Management</span><span class="pct">90%</span></div>
+              <div class="bar"><div class="fill" style="--w:90%"></div></div>
+            </div>
+          </div>
+          <div>
+            <div class="skill">
+              <div class="skill-head"><span>Cloud Security (AWS / Azure)</span><span class="pct">85%</span></div>
+              <div class="bar"><div class="fill" style="--w:85%"></div></div>
+            </div>
+            <div class="skill">
+              <div class="skill-head"><span>Threat Hunting / MITRE ATT&amp;CK</span><span class="pct">89%</span></div>
+              <div class="bar"><div class="fill" style="--w:89%"></div></div>
+            </div>
+            <div class="skill">
+              <div class="skill-head"><span>Python / PowerShell Automation</span><span class="pct">87%</span></div>
+              <div class="bar"><div class="fill" style="--w:87%"></div></div>
+            </div>
+            <div class="skill">
+              <div class="skill-head"><span>Compliance (ISO 27001 / NIST)</span><span class="pct">83%</span></div>
+              <div class="bar"><div class="fill" style="--w:83%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section id="experience" class="reveal">
+    <h2><span class="num">03 /</span> experience</h2>
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot"></span>
+        <span class="path">~/karthik/career.log</span>
+      </div>
+      <div class="term-body">
+
+        <div class="job">
+          <div class="job-title">Senior Cybersecurity Analyst</div>
+          <div class="job-meta">[Company Name] · [City] · Jan 2022 – Present</div>
+          <ul>
+            <li>Lead a team of <b>4 analysts</b> in 24/7 SOC operations, cutting Mean Time to Detect by <b>35%</b>.</li>
+            <li>Designed SOAR playbooks that automated phishing triage, saving <b>20+ hours/week</b>.</li>
+            <li>Delivered <b>15+ penetration tests</b> across web apps and internal networks, surfacing <b>40+ critical findings</b>.</li>
+            <li>Drove ISO 27001 certification to completion with <b>zero major non-conformities</b>.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-title">Cybersecurity Analyst</div>
+          <div class="job-meta">[Company Name] · [City] · Mar 2019 – Dec 2021</div>
+          <ul>
+            <li>Monitored Splunk SIEM and responded to <b>200+ incidents</b>, including ransomware and BEC.</li>
+            <li>Ran vulnerability scans (Nessus, Qualys) and drove remediation with IT and DevOps.</li>
+            <li>Built Python tooling to enrich threat intel feeds and automate IOC matching.</li>
+            <li>Co-built a threat hunting program mapped to the <b>MITRE ATT&amp;CK</b> framework.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-title">IT Security Analyst</div>
+          <div class="job-meta">[Company Name] · [City] · Jun 2018 – Feb 2019</div>
+          <ul>
+            <li>Performed firewall rule reviews and access control audits across 300+ assets.</li>
+            <li>Authored security policies and ran employee security awareness training.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects" class="reveal">
+    <h2><span class="num">04 /</span> projects</h2>
+    <div class="proj-grid">
+
+      <div class="proj">
+        <h3>Automated Phishing Response</h3>
+        <div class="stack">Python · Splunk SOAR · VirusTotal API · Exchange Online</div>
+        <p>End-to-end pipeline that extracts IOCs from reported emails, enriches them with threat intel, and auto-quarantines malicious messages. Cut response time from <b>45 min → 90 sec</b>.</p>
+      </div>
+
+      <div class="proj">
+        <h3>Cloud Security Posture Remediation</h3>
+        <div class="stack">AWS · Terraform · Prowler · Slack API</div>
+        <p>Audited <b>50+ AWS accounts</b>, surfaced public S3 buckets and over-permissive IAM, and codified fixes in Terraform. Reached <b>98% CIS Benchmark</b> compliance.</p>
+      </div>
+
+      <div class="proj">
+        <h3>Red Team Engagement — FinTech</h3>
+        <div class="stack">Cobalt Strike · BloodHound · Mimikatz · Custom C2</div>
+        <p>Led a 3-week APT simulation. Achieved domain admin in <b>4 days</b>, documented <b>12 attack paths</b>, and delivered a hardening roadmap adopted by the client.</p>
+      </div>
+
+      <div class="proj">
+        <h3>Threat Hunting with ATT&amp;CK</h3>
+        <div class="stack">ELK Stack · Sysmon · Atomic Red Team</div>
+        <p>Authored <b>30+ detection rules</b> mapped to ATT&amp;CK techniques. Proactively uncovered a stealthy cryptomining infection across <b>200 endpoints</b>.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= CERTIFICATIONS ================= -->
+  <section id="certs" class="reveal">
+    <h2><span class="num">05 /</span> certifications</h2>
+    <div class="certs">
+      <div class="cert"><span class="badge">[✓]</span> CISSP<span class="yr">2023</span></div>
+      <div class="cert"><span class="badge">[✓]</span> AWS Security – Specialty<span class="yr">2022</span></div>
+      <div class="cert"><span class="badge">[✓]</span> CEH<span class="yr">2021</span></div>
+      <div class="cert"><span class="badge">[✓]</span> Splunk Core Power User<span class="yr">2020</span></div>
+      <div class="cert"><span class="badge">[✓]</span> CompTIA Security+<span class="yr">2019</span></div>
+      <div class="cert"><span class="badge">[✓]</span> B.Sc. Computer Science<span class="yr">2018</span></div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="reveal">
+    <h2><span class="num">06 /</span> contact</h2>
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot"></span>
+        <span class="path">~/karthik/contact.sh</span>
+      </div>
+      <div class="term-body">
+        <ul class="contact-list">
+          <li>
+            <span class="lbl">$ email</span>
+            <a href="mailto:kkarthik48389@gmail.com">kkarthik48389@gmail.com</a>
+            <button class="copy-btn" data-copy="kkarthik48389@gmail.com" type="button">[ COPY ]</button>
+          </li>
+          <li>
+            <span class="lbl">$ phone</span>
+            <a href="tel:+918590822745">+91 85908 22745</a>
+            <button class="copy-btn" data-copy="+918590822745" type="button">[ COPY ]</button>
+            <a href="https://wa.me/918590822745" target="_blank" rel="noopener" style="margin-left:.4rem;color:#25d366;border-color:#25d366;">[ WhatsApp ]</a>
+          </li>
+          <li>
+            <span class="lbl">$ linkedin</span>
+            <a href="https://www.linkedin.com/in/karthik-v-rajesh-7b46a82b2" target="_blank" rel="noopener">linkedin.com/in/karthik-v-rajesh-7b46a82b2</a>
+            <button class="copy-btn" data-copy="https://www.linkedin.com/in/karthik-v-rajesh-7b46a82b2" type="button">[ COPY ]</button>
+          </li>
+          <li><span class="lbl">$ github</span><a href="https://github.com/karthik" target="_blank" rel="noopener">github.com/karthik</a></li>
+          <li><span class="lbl">$ location</span>[City], India — open to remote</li>
+          <li><span class="lbl">$ status</span><span style="color:var(--green)">● AVAILABLE FOR HIRE</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INTERACTIVE SHELL ================= -->
+  <section id="shell" class="reveal">
+    <h2><span class="num">07 /</span> try_it</h2>
+    <div class="shell" onclick="document.getElementById('shell-in').focus()">
+      <div id="shell-out">Type <span style="color:#00ff41">help</span> and hit Enter to explore. Try: whoami, skills, certs, contact, phone, sudo</div>
+      <div class="shell-line">
+        <span class="ps1">karthik@sec:~$</span>
+        <input id="shell-in" type="text" autocomplete="off" spellcheck="false" aria-label="Terminal input">
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>[ EOF ]</span> — &copy; <span id="yr"></span> Karthik<br>
+    <a href="mailto:kkarthik48389@gmail.com">kkarthik48389@gmail.com</a> ·
+    <a href="tel:+918590822745">+91 85908 22745</a> ·
+    <a href="https://www.linkedin.com/in/karthik-v-rajesh-7b46a82b2" target="_blank" rel="noopener">LinkedIn</a>
+  </footer>
+
+</div>
+
+<script>
+/* ================= MATRIX RAIN ================= */
+(function(){
+  const c = document.getElementById('matrix');
+  const ctx = c.getContext('2d');
+  const chars = 'アカサタナハマヤラワｱｲｳｴｵ0123456789ABCDEFｦｧｨ<>/\\{}[]$#@%&*+=?';
+  let cols, drops, font = 16;
+
+  function resize(){
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
+    cols = Math.floor(c.width / font);
+    drops = new Array(cols).fill(1).map(() => Math.random() * -50);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function draw(){
+    ctx.fillStyle = 'rgba(5,8,5,0.075)';
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.font = font + 'px monospace';
+    for (let i = 0; i < cols; i++){
+      const ch = chars[(Math.random() * chars.length) | 0];
+      const y = drops[i] * font;
+      ctx.fillStyle = Math.random() > 0.97 ? '#c8ffd4' : '#00ff41';
+      ctx.fillText(ch, i * font, y);
+      if (y > c.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    }
+  }
+  setInterval(draw, 55);
+})();
+
+/* ================= BOOT LINE ================= */
+(function(){
+  const el = document.getElementById('boot');
+  const seq = [
+    '> initializing secure session...',
+    '> loading kernel modules .......... [OK]',
+    '> establishing encrypted tunnel ... [OK]',
+    '> authentication accepted ......... [OK]',
+    '> welcome, visitor.'
+  ];
+  let i = 0;
+  function next(){
+    if (i >= seq.length){ el.innerHTML += '<span class="cursor">&nbsp;</span>'; return; }
+    el.innerHTML = seq.slice(0, i + 1)
+      .map((l, n) => n === i ? l : l.replace('[OK]', '<span class="ok">[OK]</span>'))
+      .join('<br>');
+    i++;
+    setTimeout(next, 420);
+  }
+  next();
+})();
+
+/* ================= TYPING ROLE ================= */
+(function(){
+  const el = document.getElementById('typed');
+  const roles = [
+    'Cybersecurity Specialist',
+    'SOC & Incident Response Lead',
+    'Penetration Tester',
+    'Threat Hunter',
+    'Cloud Security Engineer'
+  ];
+  let r = 0, ch = 0, deleting = false;
+
+  function tick(){
+    const full = roles[r];
+    el.textContent = full.substring(0, ch);
+    if (!deleting){
+      if (ch < full.length){ ch++; setTimeout(tick, 65); }
+      else { deleting = true; setTimeout(tick, 1600); }
+    } else {
+      if (ch > 0){ ch--; setTimeout(tick, 30); }
+      else { deleting = false; r = (r + 1) % roles.length; setTimeout(tick, 250); }
+    }
+  }
+  tick();
+})();
+
+/* ================= SCROLL REVEAL ================= */
+(function(){
+  const items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)){
+    items.forEach(el => el.classList.add('visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  items.forEach(el => io.observe(el));
+})();
+
+/* ================= COPY-TO-CLIPBOARD BUTTONS ================= */
+(function(){
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', function(){
+      const text = this.dataset.copy;
+      const original = this.textContent;
+      const done = () => { this.textContent = '[ COPIED ]'; setTimeout(() => this.textContent = original, 1400); };
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done).catch(() => {
+          const ta = document.createElement('textarea');
+          ta.value = text; document.body.appendChild(ta); ta.select();
+          try{ document.execCommand('copy'); }catch(e){}
+          document.body.removeChild(ta); done();
+        });
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); }catch(e){}
+        document.body.removeChild(ta); done();
+      }
+    });
+  });
+})();
+
+/* ================= INTERACTIVE SHELL ================= */
+(function(){
+  const out = document.getElementById('shell-out');
+  const input = document.getElementById('shell-in');
+
+  const cmds = {
+    help(){
+      return [
+        'Available commands:',
+        '  whoami     → short bio',
+        '  skills     → core capabilities',
+        '  experience → career timeline',
+        '  projects   → notable work',
+        '  certs      → certifications',
+        '  contact    → how to reach me',
+        '  email      → print my email',
+        '  phone      → print my phone number',
+        '  linkedin   → print my LinkedIn',
+        '  sudo       → nice try',
+        '  clear      → clear the screen'
+      ].join('\n');
+    },
+    whoami(){
+      return 'Karthik — Cybersecurity Specialist, 5+ years. SOC ops, incident response,\npenetration testing, cloud security. I find the holes before attackers do.';
+    },
+    skills(){
+      return 'SIEM (Splunk/ELK) · Incident Response · Pen Testing · Threat Hunting\nCloud Security (AWS/Azure) · Python Automation · ISO 27001 / NIST / PCI-DSS';
+    },
+    experience(){
+      return '[2022–Now ] Senior Cybersecurity Analyst  — led SOC team of 4, MTTD -35%\n[2019–2021] Cybersecurity Analyst        — 200+ incidents handled\n[2018–2019] IT Security Analyst          — firewall & access audits';
+    },
+    projects(){
+      return '1. Automated Phishing Response  (45min → 90sec)\n2. Cloud Posture Remediation     (98% CIS compliance)\n3. Red Team — FinTech            (domain admin in 4 days)\n4. Threat Hunting w/ ATT&CK      (200 endpoints cleaned)';
+    },
+    certs(){
+      return 'CISSP (2023) · AWS Security Specialty (2022) · CEH (2021)\nSplunk Power User (2020) · CompTIA Security+ (2019)';
+    },
+    contact(){
+      return 'email    : kkarthik48389@gmail.com\nphone    : +91 85908 22745\nwhatsapp : https://wa.me/918590822745\nlinkedin : linkedin.com/in/karthik-v-rajesh-7b46a82b2\ngithub   : github.com/karthik\nstatus   : ● AVAILABLE FOR HIRE';
+    },
+    email(){
+      return 'kkarthik48389@gmail.com';
+    },
+    phone(){
+      return '+91 85908 22745  |  WhatsApp: https://wa.me/918590822745';
+    },
+    linkedin(){
+      return 'https://www.linkedin.com/in/karthik-v-rajesh-7b46a82b2';
+    },
+    sudo(){
+      return 'Nice try. This incident has been logged. 🚨';
+    },
+    ls(){
+      return 'about.md   skills.txt   career.log   projects/   certs.json   contact.sh';
+    },
+    clear(){ out.innerHTML = ''; return null; }
+  };
+
+  input.addEventListener('keydown', function(e){
+    if (e.key !== 'Enter') return;
+    const raw = input.value.trim();
+    const cmd = raw.toLowerCase();
+    input.value = '';
+    if (!cmd) return;
+
+    const echo = document.createElement('div');
+    echo.innerHTML = '<span style="color:#00b32d">karthik@sec:~$</span> ' +
+      raw.replace(/[<>&]/g, s => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[s]));
+    out.appendChild(echo);
+
+    if (cmds[cmd]) {
+      const res = cmds[cmd]();
+      if (res !== null){
+        const div = document.createElement('div');
+        div.innerHTML = res;
+        div.style.margin = '0 0 .6rem';
+        div.style.color = '#b9ffcb';
+        out.appendChild(div);
+      }
+    } else {
+      const div = document.createElement('div');
+      div.innerHTML = "command not found: <span style='color:#ff2e2e'>" +
+        cmd.replace(/[<>&]/g, s => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[s])) +
+        "</span> — type <span style='color:#00ff41'>help</span>";
+      div.style.margin = '0 0 .6rem';
+      out.appendChild(div);
+    }
+    out.scrollTop = out.scrollHeight;
+  });
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
